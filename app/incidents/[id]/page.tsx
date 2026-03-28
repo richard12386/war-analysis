@@ -16,16 +16,12 @@ type IncidentPageProps = {
   params: Promise<{ id: string }>;
 };
 
-export async function generateMetadata(
-  props: IncidentPageProps,
-): Promise<Metadata> {
+export async function generateMetadata(props: IncidentPageProps): Promise<Metadata> {
   const params = await props.params;
   const incident = await getIncidentById(params.id);
 
   if (!incident) {
-    return {
-      title: "Incident nenalezen",
-    };
+    return { title: "Incident nenalezen" };
   }
 
   return {
@@ -53,19 +49,20 @@ export default async function IncidentPage(props: IncidentPageProps) {
   return (
     <main className="shell min-h-screen px-5 py-6 sm:px-8 lg:px-12">
       <article className="mx-auto max-w-5xl space-y-6">
+        {/* Hlavička */}
         <div className="rounded-[2rem] border border-white/10 bg-[var(--panel)] p-6 backdrop-blur sm:p-8">
           <div className="flex flex-wrap items-center justify-between gap-4">
             <Link
               href="/"
               className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/80 transition hover:border-white/30 hover:bg-white/6"
             >
-              Zpet na dashboard
+              Zpět na dashboard
             </Link>
             <Link
               href="/admin"
               className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/80 transition hover:border-white/30 hover:bg-white/6"
             >
-              Otevrit admin
+              Otevřít admin
             </Link>
           </div>
 
@@ -96,39 +93,40 @@ export default async function IncidentPage(props: IncidentPageProps) {
           <div className="mt-6 flex flex-wrap gap-4 text-sm uppercase tracking-[0.18em] text-white/50">
             <span>{incident.location}</span>
             <span>{formatIncidentDate(incident.publishedAt)}</span>
-            <span>{incident.sourceCount} zdroju</span>
+            <span>{incident.sourceCount} zdrojů</span>
             {incident.trustScore !== undefined ? (
-              <span className={trustColor}>trust {incident.trustScore}/100</span>
+              <span className={trustColor}>důvěra {incident.trustScore}/100</span>
             ) : null}
             {incident.casualties !== undefined ? (
-              <span className="text-[#ffb49a]">{incident.casualties} mrtvych</span>
+              <span className="text-[#ffb49a]">{incident.casualties} mrtvých</span>
             ) : null}
             {incident.injuries !== undefined ? (
-              <span>{incident.injuries} ranenych</span>
+              <span>{incident.injuries} zraněných</span>
             ) : null}
           </div>
 
-          {(incident.weaponType || incident.targetType || incident.infrastructureDamage) ? (
-            <div className="mt-5 flex flex-wrap gap-3 text-sm">
+          {incident.weaponType || incident.targetType || incident.infrastructureDamage ? (
+            <div className="mt-5 flex flex-wrap gap-3">
               {incident.weaponType ? (
                 <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.16em] text-[#ffd79b]">
-                  Zbroj: {incident.weaponType}
+                  Zbraň: {incident.weaponType}
                 </span>
               ) : null}
               {incident.targetType ? (
                 <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.16em] text-white/70">
-                  Cil: {incident.targetType}
+                  Cíl: {incident.targetType}
                 </span>
               ) : null}
               {incident.infrastructureDamage ? (
                 <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs uppercase tracking-[0.16em] text-[#ffd8a8]">
-                  Poskozeno: {incident.infrastructureDamage}
+                  Poškozeno: {incident.infrastructureDamage}
                 </span>
               ) : null}
             </div>
           ) : null}
         </div>
 
+        {/* Obsah */}
         <div className="grid gap-6 lg:grid-cols-[1fr_0.8fr]">
           <section className="rounded-[1.75rem] border border-white/10 bg-[var(--panel)] p-6 backdrop-blur">
             <h2 className="text-2xl">Detail incidentu</h2>
@@ -159,21 +157,21 @@ export default async function IncidentPage(props: IncidentPageProps) {
               <h2 className="text-2xl">Verifikace</h2>
               <div className="mt-4 space-y-3">
                 <div className="flex items-center justify-between gap-3 text-sm">
-                  <span className="text-[var(--muted)]">Trust score</span>
+                  <span className="text-[var(--muted)]">Skóre důvěry</span>
                   <span className={`font-mono ${trustColor}`}>
                     {incident.trustScore ?? "—"}/100
                   </span>
                 </div>
                 {incident.trustedSourceCount !== undefined ? (
                   <div className="flex items-center justify-between gap-3 text-sm">
-                    <span className="text-[var(--muted)]">Duveryhodne zdroje</span>
+                    <span className="text-[var(--muted)]">Důvěryhodné zdroje</span>
                     <span className="font-mono text-[#b7efc5]">
                       {incident.trustedSourceCount}
                     </span>
                   </div>
                 ) : null}
                 <div className="flex items-center justify-between gap-3 text-sm">
-                  <span className="text-[var(--muted)]">Stav overeni</span>
+                  <span className="text-[var(--muted)]">Stav ověření</span>
                   <span
                     className={`font-mono text-xs uppercase tracking-[0.18em] ${
                       incident.verification === "confirmed"
@@ -197,7 +195,7 @@ export default async function IncidentPage(props: IncidentPageProps) {
               {incident.suspiciousSignals?.length ? (
                 <div className="mt-4 rounded-[1rem] border border-[#ffd8a8]/20 bg-[#ffd8a8]/5 p-3">
                   <p className="font-mono text-xs uppercase tracking-[0.18em] text-[#ffd8a8]">
-                    Suspiciozni signaly
+                    Podezřelé signály
                   </p>
                   <p className="mt-2 text-xs text-[#ffd8a8]/80">
                     {incident.suspiciousSignals.join(", ")}
@@ -206,8 +204,8 @@ export default async function IncidentPage(props: IncidentPageProps) {
               ) : null}
 
               <p className="mt-4 text-xs leading-6 text-[var(--muted)]">
-                Automaticka kontrola nedokaze garantovat pravdu. Finalni
-                potvrzeni musi delat redakcni workflow.
+                Automatická kontrola nedokáže garantovat pravdu. Finální
+                potvrzení musí provést redakční workflow.
               </p>
             </section>
 
@@ -227,22 +225,22 @@ export default async function IncidentPage(props: IncidentPageProps) {
                         rel="noreferrer"
                         className="rounded-[1.2rem] border border-white/10 bg-white/5 p-4 transition hover:border-white/25 hover:bg-white/8"
                       >
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                           <p className="text-base">{source.label}</p>
                           {official ? (
                             <span className="rounded-full bg-[#b7efc5]/15 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-[#b7efc5]">
-                              Oficial
+                              Oficiální
                             </span>
                           ) : trusted ? (
                             <span className="rounded-full bg-white/8 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/60">
-                              Duveryhodny
+                              Důvěryhodný
                             </span>
                           ) : (
                             <span className="rounded-full bg-[#ffd8a8]/10 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-[#ffd8a8]">
-                              Neovereny
+                              Neověřený
                             </span>
                           )}
-                          <span className="ml-1 rounded-full bg-white/6 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">
+                          <span className="rounded-full bg-white/6 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.2em] text-white/50">
                             {source.type}
                           </span>
                         </div>
@@ -259,8 +257,8 @@ export default async function IncidentPage(props: IncidentPageProps) {
                   })
                 ) : (
                   <p className="text-sm leading-7 text-[var(--muted)]">
-                    Zatim nejsou ulozene zadne zdroje. Dopln je v admin rozhrani
-                    nebo pres import.
+                    Zatím nejsou uloženy žádné zdroje. Doplň je v admin rozhraní
+                    nebo přes import.
                   </p>
                 )}
               </div>
@@ -271,20 +269,21 @@ export default async function IncidentPage(props: IncidentPageProps) {
               <section className="rounded-[1.75rem] border border-white/10 bg-[var(--panel)] p-6 backdrop-blur">
                 <h2 className="text-2xl">Mapa a trajektorie</h2>
                 {incident.mapPoint ? (
-                  <div className="mt-4 rounded-[1.2rem] border border-white/10 bg-black/20 p-4 text-sm">
+                  <div className="mt-4 rounded-[1.2rem] border border-white/10 bg-black/20 p-4">
                     <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#ffb49a]">
-                      Misto incidentu
+                      Místo incidentu
                     </p>
                     <p className="mt-2 text-white/80">{incident.mapPoint.label}</p>
                     <p className="mt-1 font-mono text-xs text-white/40">
-                      {incident.mapPoint.lat.toFixed(4)}, {incident.mapPoint.lng.toFixed(4)}
+                      {incident.mapPoint.lat.toFixed(4)},{" "}
+                      {incident.mapPoint.lng.toFixed(4)}
                     </p>
                   </div>
                 ) : null}
                 {incident.trajectories?.map((traj) => (
                   <div
                     key={traj.id}
-                    className="mt-3 rounded-[1.2rem] border border-white/10 bg-black/20 p-4 text-sm"
+                    className="mt-3 rounded-[1.2rem] border border-white/10 bg-black/20 p-4"
                   >
                     <div className="flex items-center gap-2">
                       <p className="font-mono text-xs uppercase tracking-[0.2em] text-[#ffd79b]">
@@ -293,7 +292,7 @@ export default async function IncidentPage(props: IncidentPageProps) {
                       <span
                         className={`font-mono text-[10px] uppercase tracking-[0.18em] ${traj.status === "confirmed" ? "text-[#b7efc5]" : "text-[#ffd8a8]"}`}
                       >
-                        {traj.status === "confirmed" ? "Potvrzeno" : "Hlaseno"}
+                        {traj.status === "confirmed" ? "Potvrzeno" : "Hlášeno"}
                       </span>
                     </div>
                     <div className="mt-3 grid grid-cols-2 gap-3">
@@ -305,7 +304,7 @@ export default async function IncidentPage(props: IncidentPageProps) {
                         </p>
                       </div>
                       <div>
-                        <p className="text-xs text-white/40">Cil</p>
+                        <p className="text-xs text-white/40">Cíl</p>
                         <p className="mt-1 text-white/80">{traj.target.label}</p>
                         <p className="font-mono text-xs text-white/30">
                           {traj.target.lat.toFixed(4)}, {traj.target.lng.toFixed(4)}
@@ -315,7 +314,7 @@ export default async function IncidentPage(props: IncidentPageProps) {
                   </div>
                 ))}
                 <p className="mt-4 text-xs leading-6 text-[var(--muted)]">
-                  Souradnice jsou zobrazeny na hlavni mape dashboardu.
+                  Souřadnice jsou zobrazeny na hlavní mapě dashboardu.
                 </p>
               </section>
             ) : null}

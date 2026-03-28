@@ -162,32 +162,32 @@ function buildNote(
   signals: string[],
 ): string {
   if (recommendation === "confirmed") {
-    const parts = [`Nalezeno ${trustedSources} duveryhodnych zdroju`];
+    const parts = [`Nalezeno ${trustedSources} důvěryhodných zdrojů`];
     if (officialSources > 0) {
-      parts.push(`vcetne ${officialSources} oficialniho zdroje`);
+      parts.push(`včetně ${officialSources} oficiálního zdroje`);
     }
-    parts.push("– doporucena redakcni verifikace pred publikaci.");
+    parts.push("– doporučena redakční verifikace před publikací.");
     return parts.join(" ");
   }
 
   if (recommendation === "contested") {
     if (signals.includes("bez-zdroju")) {
-      return "Zaznam nema zadne zdroje a nema byt publikovan jako potvrzeny.";
+      return "Záznam nemá žádné zdroje a nesmí být publikován jako potvrzený.";
     }
     if (signals.includes("jednostranny-zdroj")) {
-      return "Zaznam pochazi pouze z jednostranneho nebo propagandistickeho zdroje. Overit nezavislymi zdroji.";
+      return "Záznam pochází pouze z jednostranného nebo propagandistického zdroje. Ověřit nezávislými zdroji.";
     }
-    return "Zaznam je slabe podlozeny nebo obsahuje nepotvrzujici jazyk. Nevhodny pro publikaci bez dalsich zdroju.";
+    return "Záznam je slabě podložený nebo obsahuje nepotvrzující jazyk. Nevhodný pro publikaci bez dalších zdrojů.";
   }
 
   // pending
   if (signals.includes("jen-jeden-zdroj")) {
-    return "Jeden zdroj nestaci pro potvrzeni. Doporuceno doplnit dalsi nezavisle zdroje.";
+    return "Jeden zdroj nestačí pro potvrzení. Doporučeno doplnit další nezávislé zdroje.";
   }
   if (signals.includes("bez-duveryhodneho-domenu")) {
-    return "Zadny ze zdroju nepatri mezi proverovane domeny. Overit puvod informace.";
+    return "Žádný ze zdrojů nepatří mezi prověřované domény. Ověřit původ informace.";
   }
-  return "Zaznam ceka na redakcni potvrzeni a dalsi zdroje.";
+  return "Záznam čeká na redakční potvrzení a další zdroje.";
 }
 
 export function isTrustedSource(source: IncidentSource) {

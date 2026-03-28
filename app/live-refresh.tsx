@@ -32,7 +32,7 @@ export function LiveRefresh({ intervalMs = 300000 }: { intervalMs?: number }) {
 
   return (
     <div className="rounded-full border border-white/10 bg-black/20 px-4 py-2 font-mono text-xs uppercase tracking-[0.22em] text-white/65">
-      Auto refresh {String(minutes).padStart(2, "0")}:
+      Obnova za {String(minutes).padStart(2, "0")}:
       {String(seconds).padStart(2, "0")}
     </div>
   );

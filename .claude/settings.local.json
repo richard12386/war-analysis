@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(find . -type d ! -path */.next* ! -path */node_modules* ! -path */.git*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(npm install:*)",
+      "Bash(gh api:*)",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(grep -i \"^ws$\")",
+      "Bash(npx tsc:*)",
+      "Bash(grep -n '\"\"enabled\"\"' data/import-sources.json)",
+      "Bash(grep -n '\"\"format\"\"' data/import-sources.json)"
     ]
   }
 }

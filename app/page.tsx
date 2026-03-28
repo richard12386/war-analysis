@@ -17,7 +17,7 @@ import {
 export const metadata: Metadata = {
   title: "Dashboard",
   description:
-    "Pripraveny newsroom dashboard pro sledovani incidentu, overovani zdroju a publikaci aktualit o valce v Iranu.",
+    "Newsroom dashboard pro sledování incidentů, ověřování zdrojů a publikaci aktualit o válce v Íránu.",
 };
 
 export const dynamic = "force-dynamic";
@@ -57,21 +57,19 @@ export default async function Home() {
   const stats = await getDashboardStats();
   const featured = await getFeaturedIncidents();
   const incidents = await getSortedIncidents();
-  const sortedIncidents = sortByVerificationPriority(incidents);
 
-  const liveIncidents = sortedIncidents.filter((i) => !i.isTemplate);
+  const liveIncidents = incidents.filter((i) => !i.isTemplate);
   const confirmedIncidents = liveIncidents.filter((i) => i.verification === "confirmed");
   const pendingIncidents = liveIncidents.filter((i) => i.verification === "pending");
-  const contestedIncidents = liveIncidents.filter(
-    (i) => i.verification === "contested",
-  );
-  const templateIncidents = sortedIncidents.filter((i) => i.isTemplate);
+  const contestedIncidents = liveIncidents.filter((i) => i.verification === "contested");
+  const templateIncidents = sortByVerificationPriority(incidents).filter((i) => i.isTemplate);
 
   const hasRecentConfirmed = confirmedIncidents.length > 0;
 
   return (
     <main className="shell min-h-screen px-5 py-6 text-foreground sm:px-8 lg:px-12">
       <div className="mx-auto flex w-full max-w-7xl flex-col gap-8">
+        {/* Hero */}
         <section className="overflow-hidden rounded-[2rem] border border-white/10 bg-[var(--panel)] shadow-[0_30px_80px_rgba(0,0,0,0.45)] backdrop-blur">
           <div className="grid gap-8 px-6 py-8 sm:px-8 lg:grid-cols-[1.35fr_0.95fr] lg:px-10 lg:py-10">
             <div className="space-y-6">
@@ -80,15 +78,15 @@ export default async function Home() {
                   War monitoring
                 </span>
                 <span className="rounded-full border border-[var(--line)] px-3 py-1">
-                  Iran focus
+                  Fokus na Írán
                 </span>
                 {hasRecentConfirmed ? (
                   <span className="rounded-full border border-[#b7efc5]/30 bg-[#b7efc5]/10 px-3 py-1 text-[#b7efc5]">
-                    Live – nove potvrzene zpravy
+                    Live – potvrzené zprávy
                   </span>
                 ) : (
                   <span className="rounded-full border border-[var(--line)] px-3 py-1">
-                    Pripraveno pro ziva data
+                    Připraveno pro živá data
                   </span>
                 )}
               </div>
@@ -98,12 +96,12 @@ export default async function Home() {
                   {dataset.meta.siteTitle}
                 </p>
                 <h1 className="max-w-4xl text-5xl leading-none font-medium text-balance sm:text-6xl lg:text-7xl">
-                  Redakcni zaklad pro vsechny aktuality ohledne valky v Iranu.
+                  Redakční základ pro všechny aktuality o válce v Íránu.
                 </h1>
                 <p className="max-w-2xl text-base leading-8 text-[var(--muted)] sm:text-lg">
-                  Dashboard je pripraveny na prubezne doplnovani overenych udalosti,
-                  prioritizaci breaking updates, rozdeleni podle zavaznosti a
-                  oddeleni potvrzenych informaci od tvrzeni, ktera jeste cekaji na
+                  Dashboard umožňuje průběžné doplňování ověřených událostí,
+                  prioritizaci breaking updates, třídění podle závažnosti a
+                  oddělení potvrzených informací od tvrzení čekajících na
                   verifikaci.
                 </p>
               </div>
@@ -113,19 +111,19 @@ export default async function Home() {
                   href="#timeline"
                   className="rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-[#1a100d] transition hover:brightness-110"
                 >
-                  Otevrit timeline
+                  Otevřít timeline
                 </Link>
                 <Link
                   href="/admin"
                   className="rounded-full border border-white/12 px-5 py-3 text-sm font-semibold text-white/90 transition hover:border-white/30 hover:bg-white/6"
                 >
-                  Otevrit admin
+                  Otevřít admin
                 </Link>
                 <Link
                   href="/api/incidents"
                   className="rounded-full border border-white/12 px-5 py-3 text-sm font-semibold text-white/90 transition hover:border-white/30 hover:bg-white/6"
                 >
-                  API s incidenty
+                  API – incidenty
                 </Link>
               </div>
             </div>
@@ -134,31 +132,32 @@ export default async function Home() {
               <div className="sm:col-span-2">
                 <LiveRefresh intervalMs={300000} />
               </div>
-              <MetricCard value={stats.totalItems} label="Polozky v systemu" />
-              <MetricCard value={stats.liveItems} label="Zive incidenty" />
+              <MetricCard value={stats.totalItems} label="Položky v systému" />
+              <MetricCard value={stats.liveItems} label="Živé incidenty" />
               <MetricCard
                 value={stats.verifiedItems}
-                label="Potvrzene zaznamy"
+                label="Potvrzené záznamy"
                 highlight={stats.verifiedItems > 0}
               />
-              <MetricCard value={stats.criticalItems} label="Kriticke incidenty" />
+              <MetricCard value={stats.criticalItems} label="Kritické incidenty" />
               <MetricCard value={stats.featuredItems} label="Featured karty" />
-              <MetricCard value={stats.pendingItems} label="Cekajici na overeni" />
+              <MetricCard value={stats.pendingItems} label="Čeká na ověření" />
             </aside>
           </div>
         </section>
 
+        {/* Featured + Watchlist */}
         <section className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
           <div className="rounded-[1.75rem] border border-white/10 bg-[var(--panel)] p-6 backdrop-blur">
             <div className="mb-5 flex items-center justify-between gap-4">
               <div>
                 <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#ffb49a]">
-                  Featured flow
+                  Featured
                 </p>
-                <h2 className="mt-2 text-3xl">Co ma byt vzdy nahore</h2>
+                <h2 className="mt-2 text-3xl">Co má být vždy nahoře</h2>
               </div>
               <p className="text-sm text-[var(--muted)]">
-                Posledni update {formatIncidentDate(dataset.meta.lastUpdated)}
+                Poslední update {formatIncidentDate(dataset.meta.lastUpdated)}
               </p>
             </div>
 
@@ -194,10 +193,18 @@ export default async function Home() {
                     <div className="mt-4 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.18em] text-white/55">
                       <span>{incident.location}</span>
                       <span>{formatIncidentDate(incident.publishedAt)}</span>
-                      <span>{incident.sourceCount} zdroju</span>
+                      <span>{incident.sourceCount} zdrojů</span>
                       {incident.trustScore !== undefined ? (
-                        <span className={incident.trustScore >= 70 ? "text-[#b7efc5]" : incident.trustScore < 35 ? "text-[#ffd8a8]" : ""}>
-                          trust {incident.trustScore}/100
+                        <span
+                          className={
+                            incident.trustScore >= 70
+                              ? "text-[#b7efc5]"
+                              : incident.trustScore < 35
+                                ? "text-[#ffd8a8]"
+                                : ""
+                          }
+                        >
+                          důvěra {incident.trustScore}/100
                         </span>
                       ) : null}
                     </div>
@@ -205,7 +212,7 @@ export default async function Home() {
                 ))
               ) : (
                 <p className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5 text-sm leading-7 text-[var(--muted)]">
-                  Zatim zadne featured incidenty. Oznac incident jako featured v admin rozhrani.
+                  Zatím žádné featured incidenty. Označ incident jako featured v admin rozhraní.
                 </p>
               )}
             </div>
@@ -216,7 +223,7 @@ export default async function Home() {
               <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#ffb49a]">
                 Watchlist
               </p>
-              <h2 className="mt-2 text-3xl">Okruhy, ktere hlidat</h2>
+              <h2 className="mt-2 text-3xl">Okruhy ke sledování</h2>
               <div className="mt-5 grid gap-3">
                 {dataset.watchlist.map((item) => (
                   <article
@@ -234,21 +241,23 @@ export default async function Home() {
 
             <section className="rounded-[1.75rem] border border-white/10 bg-[var(--panel)] p-6 backdrop-blur">
               <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#ffb49a]">
-                Redakcni pravidlo
+                Redakční pravidlo
               </p>
               <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
                 {dataset.meta.editorialNote}
               </p>
               <div className="mt-4 rounded-[1.25rem] border border-[var(--line)] bg-[var(--accent-soft)] p-4 text-sm leading-7 text-[#f8d6cb]">
-                Doporuceny tok: nejdriv vlozit incident, potom pridat zdroje,
-                nastavit uroven overeni a teprve pak oznacit kartu jako featured.
+                Doporučený postup: nejdřív vložit incident, pak přidat zdroje,
+                nastavit úroveň ověření a teprve poté označit jako featured.
               </div>
             </section>
           </div>
         </section>
 
+        {/* Mapa */}
         <IncidentMap incidents={incidents} />
 
+        {/* Timeline */}
         <section
           id="timeline"
           className="rounded-[1.75rem] border border-white/10 bg-[var(--panel)] p-6 backdrop-blur"
@@ -258,12 +267,12 @@ export default async function Home() {
               <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#ffb49a]">
                 Timeline
               </p>
-              <h2 className="mt-2 text-3xl">Chronologie incidentu</h2>
+              <h2 className="mt-2 text-3xl">Chronologie incidentů</h2>
             </div>
             <div className="flex items-center gap-4 text-sm text-[var(--muted)]">
               <span className="text-[#b7efc5]">{confirmedIncidents.length} potvrzeno</span>
-              <span>{pendingIncidents.length} ceka</span>
-              <span className="text-[#ffd8a8]">{contestedIncidents.length} sporne</span>
+              <span>{pendingIncidents.length} čeká</span>
+              <span className="text-[#ffd8a8]">{contestedIncidents.length} sporné</span>
             </div>
           </div>
 
@@ -277,28 +286,28 @@ export default async function Home() {
             )}
             {pendingIncidents.length > 0 && (
               <IncidentGroup
-                label="Ceka na overeni"
+                label="Čeká na ověření"
                 labelColor="text-[#d3d3d3]"
                 incidents={pendingIncidents}
               />
             )}
             {contestedIncidents.length > 0 && (
               <IncidentGroup
-                label="Sporne / slabe podlozene"
+                label="Sporné / slabě podložené"
                 labelColor="text-[#ffd8a8]"
                 incidents={contestedIncidents}
               />
             )}
             {templateIncidents.length > 0 && (
               <IncidentGroup
-                label="Sablony (nahradit livymi daty)"
+                label="Šablony (nahradit živými daty)"
                 labelColor="text-[#c8b7a4]"
                 incidents={templateIncidents}
               />
             )}
             {liveIncidents.length === 0 && templateIncidents.length === 0 && (
               <p className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5 text-sm leading-7 text-[var(--muted)]">
-                Zatim zadne zaznamy. Pridej incident v admin rozhrani nebo spust import.
+                Zatím žádné záznamy. Přidej incident v admin rozhraní nebo spusť import.
               </p>
             )}
           </div>
@@ -360,9 +369,7 @@ function IncidentRow({ incident, index }: { incident: Incident; index: number })
             {incident.title}
           </Link>
         </h3>
-        <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
-          {incident.summary}
-        </p>
+        <p className="mt-3 text-sm leading-7 text-[var(--muted)]">{incident.summary}</p>
         <div className="mt-4 flex flex-wrap gap-2">
           {incident.tags.map((tag) => (
             <span
@@ -376,7 +383,7 @@ function IncidentRow({ incident, index }: { incident: Incident; index: number })
         <div className="mt-5 flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.18em] text-white/50">
           <span>{incident.location}</span>
           <span>{formatIncidentDate(incident.publishedAt)}</span>
-          <span>{incident.sourceCount} zdroju</span>
+          <span>{incident.sourceCount} zdrojů</span>
           {incident.trustScore !== undefined ? (
             <span
               className={
@@ -387,21 +394,19 @@ function IncidentRow({ incident, index }: { incident: Incident; index: number })
                     : ""
               }
             >
-              trust {incident.trustScore}/100
+              důvěra {incident.trustScore}/100
             </span>
           ) : null}
           {incident.casualties !== undefined ? (
-            <span className="text-[#ffb49a]">
-              {incident.casualties} mrtvych
-            </span>
+            <span className="text-[#ffb49a]">{incident.casualties} mrtvých</span>
           ) : null}
           {incident.injuries !== undefined ? (
-            <span>{incident.injuries} ranenych</span>
+            <span>{incident.injuries} zraněných</span>
           ) : null}
         </div>
         {incident.suspiciousSignals?.length ? (
           <p className="mt-4 text-xs uppercase tracking-[0.18em] text-[#ffd8a8]">
-            Signaly: {incident.suspiciousSignals.join(", ")}
+            Signály: {incident.suspiciousSignals.join(", ")}
           </p>
         ) : null}
       </div>

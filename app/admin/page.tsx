@@ -14,8 +14,7 @@ import { readImportSources } from "@/lib/import-sources";
 
 export const metadata: Metadata = {
   title: "Admin",
-  description:
-    "Redakcni rozhrani pro manualni zadavani incidentu a spousteni importu ze zdroju.",
+  description: "Redakční rozhraní pro ruční zadávání incidentů a spouštění importů ze zdrojů.",
 };
 
 export const dynamic = "force-dynamic";
@@ -60,15 +59,16 @@ export default async function AdminPage(props: AdminPageProps) {
   return (
     <main className="shell min-h-screen px-5 py-6 sm:px-8 lg:px-12">
       <div className="mx-auto flex max-w-7xl flex-col gap-8">
+        {/* Header */}
         <section className="rounded-[2rem] border border-white/10 bg-[var(--panel)] p-6 backdrop-blur sm:p-8">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#ffb49a]">
                 Desk control
               </p>
-              <h1 className="mt-2 text-4xl sm:text-5xl">Redakcni konzole</h1>
+              <h1 className="mt-2 text-4xl sm:text-5xl">Redakční konzole</h1>
               <p className="mt-3 max-w-2xl text-sm leading-7 text-[var(--muted)]">
-                Odsud muzes rucne pridavat incidenty, spoustet importy a hned
+                Odsud lze ručně přidávat incidenty, spouštět importy a hned
                 kontrolovat, co je venku na dashboardu.
               </p>
             </div>
@@ -76,55 +76,52 @@ export default async function AdminPage(props: AdminPageProps) {
               href="/"
               className="rounded-full border border-white/10 px-4 py-2 text-sm text-white/80 transition hover:border-white/30 hover:bg-white/6"
             >
-              Zpet na dashboard
+              Zpět na dashboard
             </Link>
           </div>
 
           {searchParams.created ? (
             <StatusNotice variant="success">
-              Novy incident byl ulozen a zobrazi se na dashboardu.
+              Nový incident byl uložen a zobrazí se na dashboardu.
             </StatusNotice>
           ) : null}
 
           {searchParams.imported ? (
             <StatusNotice variant="success">
-              Import probehl. Pridano nebo aktualizovano {searchParams.imported} zaznamu.
+              Import proběhl. Přidáno nebo aktualizováno {searchParams.imported} záznamů.
               {searchParams.failedSources ? (
                 <span className="ml-1 text-[#ffd8a8]">
-                  ({searchParams.failedSources} zdroju selhalo)
+                  ({searchParams.failedSources} zdrojů selhalo)
                 </span>
               ) : null}
             </StatusNotice>
           ) : null}
 
-          {/* Verifikacni prehled */}
+          {/* Verifikační přehled */}
           {liveIncidents.length > 0 ? (
             <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-              <StatPill label="Prumerne trust" value={`${trustStats.avg}/100`} />
+              <StatPill label="Průměrná důvěra" value={`${trustStats.avg}/100`} />
               <StatPill
                 label="Potvrzeno"
                 value={String(trustStats.confirmed)}
                 color="text-[#b7efc5]"
               />
-              <StatPill label="Ceka na overeni" value={String(trustStats.pending)} />
+              <StatPill label="Čeká na ověření" value={String(trustStats.pending)} />
               <StatPill
-                label="Sporne"
+                label="Sporné"
                 value={String(trustStats.contested)}
                 color="text-[#ffd8a8]"
               />
-              <StatPill
-                label="Ma duveryhodny zdroj"
-                value={String(trustStats.withTrusted)}
-              />
+              <StatPill label="Má důvěryhodný zdroj" value={String(trustStats.withTrusted)} />
             </div>
           ) : null}
 
           {Object.keys(signalCounts).length > 0 ? (
             <div className="mt-4 rounded-[1.25rem] border border-[#ffd8a8]/20 bg-[#ffd8a8]/5 px-4 py-3 text-sm text-[#ffd8a8]">
-              <span className="font-mono uppercase tracking-[0.2em]">Suspiciozni signaly:</span>
+              <span className="font-mono uppercase tracking-[0.2em]">Podezřelé signály:</span>
               <span className="ml-2">
                 {Object.entries(signalCounts)
-                  .map(([signal, count]) => `${signal} (${count}x)`)
+                  .map(([signal, count]) => `${signal} (${count}×)`)
                   .join(", ")}
               </span>
             </div>
@@ -132,26 +129,22 @@ export default async function AdminPage(props: AdminPageProps) {
         </section>
 
         <section className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+          {/* Formulář pro ruční zadání */}
           <section className="rounded-[1.75rem] border border-white/10 bg-[var(--panel)] p-6 backdrop-blur">
             <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#ffb49a]">
-              Manual entry
+              Ruční zadání
             </p>
-            <h2 className="mt-2 text-3xl">Pridat incident</h2>
+            <h2 className="mt-2 text-3xl">Přidat incident</h2>
             <form action={createIncidentAction} className="mt-6 grid gap-4">
               <LabelledField label="Titulek">
                 <input name="title" required className={inputClassName} />
               </LabelledField>
 
-              <LabelledField label="Shrnuti">
-                <textarea
-                  name="summary"
-                  required
-                  rows={4}
-                  className={inputClassName}
-                />
+              <LabelledField label="Shrnutí">
+                <textarea name="summary" required rows={4} className={inputClassName} />
               </LabelledField>
 
-              <LabelledField label="Detailni text">
+              <LabelledField label="Detailní text">
                 <textarea name="body" rows={8} className={inputClassName} />
               </LabelledField>
 
@@ -159,12 +152,8 @@ export default async function AdminPage(props: AdminPageProps) {
                 <LabelledField label="Lokalita">
                   <input name="location" required className={inputClassName} />
                 </LabelledField>
-                <LabelledField label="Publikovano">
-                  <input
-                    name="publishedAt"
-                    type="datetime-local"
-                    className={inputClassName}
-                  />
+                <LabelledField label="Publikováno">
+                  <input name="publishedAt" type="datetime-local" className={inputClassName} />
                 </LabelledField>
               </div>
 
@@ -172,31 +161,27 @@ export default async function AdminPage(props: AdminPageProps) {
                 <LabelledField label="Kategorie">
                   <select name="category" defaultValue="breaking" className={inputClassName}>
                     <option value="breaking">Breaking</option>
-                    <option value="vojensky-vyvoj">Vojensky vyvoj</option>
-                    <option value="civilni-dopady">Civilni dopady</option>
+                    <option value="vojensky-vyvoj">Vojenský vývoj</option>
+                    <option value="civilni-dopady">Civilní dopady</option>
                     <option value="diplomacie">Diplomacie</option>
                   </select>
                 </LabelledField>
 
-                <LabelledField label="Zavaznost">
+                <LabelledField label="Závažnost">
                   <select name="severity" defaultValue="high" className={inputClassName}>
-                    <option value="critical">Kriticka</option>
-                    <option value="high">Vysoka</option>
-                    <option value="medium">Stredni</option>
-                    <option value="low">Nizka</option>
+                    <option value="critical">Kritická</option>
+                    <option value="high">Vysoká</option>
+                    <option value="medium">Střední</option>
+                    <option value="low">Nízká</option>
                   </select>
                 </LabelledField>
 
-                <LabelledField label="Overeni">
-                  <select
-                    name="verification"
-                    defaultValue="pending"
-                    className={inputClassName}
-                  >
+                <LabelledField label="Ověření">
+                  <select name="verification" defaultValue="pending" className={inputClassName}>
                     <option value="confirmed">Potvrzeno</option>
-                    <option value="pending">Ceka na overeni</option>
-                    <option value="contested">Sporne</option>
-                    <option value="template">Sablona</option>
+                    <option value="pending">Čeká na ověření</option>
+                    <option value="contested">Sporné</option>
+                    <option value="template">Šablona</option>
                   </select>
                 </LabelledField>
               </div>
@@ -204,30 +189,30 @@ export default async function AdminPage(props: AdminPageProps) {
               <LabelledField label="Tagy">
                 <input
                   name="tags"
-                  placeholder="iran, breaking, rakety"
+                  placeholder="írán, breaking, rakety"
                   className={inputClassName}
                 />
               </LabelledField>
 
               <div className="grid gap-4 md:grid-cols-2">
-                <LabelledField label="Typ zbrane (nepovinne)">
+                <LabelledField label="Typ zbraně (nepovinné)">
                   <input
                     name="weaponType"
-                    placeholder="Balisticka raketa, drone, delostrelecka palba..."
+                    placeholder="Balistická raketa, dron, dělostřelba…"
                     className={inputClassName}
                   />
                 </LabelledField>
-                <LabelledField label="Typ cile (nepovinne)">
+                <LabelledField label="Typ cíle (nepovinné)">
                   <input
                     name="targetType"
-                    placeholder="Vojenska zakladna, civilni infrastruktura..."
+                    placeholder="Vojenská základna, civilní infrastruktura…"
                     className={inputClassName}
                   />
                 </LabelledField>
               </div>
 
               <div className="grid gap-4 md:grid-cols-2">
-                <LabelledField label="Mrtvych (potvrzeno)">
+                <LabelledField label="Mrtvých (potvrzeno)">
                   <input
                     name="casualties"
                     type="number"
@@ -236,7 +221,7 @@ export default async function AdminPage(props: AdminPageProps) {
                     className={inputClassName}
                   />
                 </LabelledField>
-                <LabelledField label="Ranenych (potvrzeno)">
+                <LabelledField label="Zraněných (potvrzeno)">
                   <input
                     name="injuries"
                     type="number"
@@ -247,16 +232,16 @@ export default async function AdminPage(props: AdminPageProps) {
                 </LabelledField>
               </div>
 
-              <LabelledField label="Poskozena infrastruktura (nepovinne)">
+              <LabelledField label="Poškozená infrastruktura (nepovinné)">
                 <input
                   name="infrastructureDamage"
-                  placeholder="Leticka draha, elektricka sit, nemocnice..."
+                  placeholder="Letecká dráha, elektrická síť, nemocnice…"
                   className={inputClassName}
                 />
               </LabelledField>
 
               <div className="grid gap-4 md:grid-cols-3">
-                <LabelledField label="Nazev zdroje">
+                <LabelledField label="Název zdroje">
                   <input name="sourceLabel" className={inputClassName} />
                 </LabelledField>
                 <LabelledField label="URL zdroje">
@@ -264,8 +249,8 @@ export default async function AdminPage(props: AdminPageProps) {
                 </LabelledField>
                 <LabelledField label="Typ zdroje">
                   <select name="sourceType" defaultValue="media" className={inputClassName}>
-                    <option value="media">Media</option>
-                    <option value="official">Official</option>
+                    <option value="media">Média</option>
+                    <option value="official">Oficiální</option>
                     <option value="osint">OSINT</option>
                     <option value="ngo">NGO</option>
                   </select>
@@ -275,11 +260,11 @@ export default async function AdminPage(props: AdminPageProps) {
               <div className="flex flex-wrap gap-5 pt-2 text-sm text-[var(--muted)]">
                 <label className="flex items-center gap-2">
                   <input type="checkbox" name="featured" className="h-4 w-4" />
-                  Oznacit jako featured
+                  Označit jako featured
                 </label>
                 <label className="flex items-center gap-2">
                   <input type="checkbox" name="isTemplate" className="h-4 w-4" />
-                  Ulozit jako sablonu
+                  Uložit jako šablonu
                 </label>
               </div>
 
@@ -287,21 +272,22 @@ export default async function AdminPage(props: AdminPageProps) {
                 type="submit"
                 className="mt-2 w-fit rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-[#1a100d] transition hover:brightness-110"
               >
-                Ulozit incident
+                Uložit incident
               </button>
             </form>
           </section>
 
           <div className="space-y-6">
+            {/* Import */}
             <section className="rounded-[1.75rem] border border-white/10 bg-[var(--panel)] p-6 backdrop-blur">
               <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#ffb49a]">
                 Import
               </p>
               <h2 className="mt-2 text-3xl">Spustit ingest</h2>
               <p className="mt-3 text-sm leading-7 text-[var(--muted)]">
-                Nakonfigurovane zdroje jsou v souboru{" "}
-                <code>data/import-sources.json</code>. Importovane zaznamy se
-                ukladaji jako nefeatured s overenim &quot;ceka na overeni&quot;.
+                Nakonfigurované zdroje jsou v souboru{" "}
+                <code>data/import-sources.json</code>. Importované záznamy se
+                ukládají jako nefeatured s ověřením &quot;čeká na ověření&quot;.
               </p>
 
               {enabledSources.length > 0 ? (
@@ -310,12 +296,12 @@ export default async function AdminPage(props: AdminPageProps) {
                     type="submit"
                     className="w-full rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-[#1a100d] transition hover:brightness-110"
                   >
-                    Importovat vsechny aktivni zdroje ({enabledSources.length})
+                    Importovat všechny aktivní zdroje ({enabledSources.length})
                   </button>
                 </form>
               ) : (
                 <p className="mt-4 rounded-[1.25rem] border border-white/10 bg-black/20 p-4 text-sm text-[var(--muted)]">
-                  Zadne aktivni zdroje. Nastav{" "}
+                  Žádné aktivní zdroje. Nastav{" "}
                   <code>&quot;enabled&quot;: true</code> v{" "}
                   <code>data/import-sources.json</code>.
                 </p>
@@ -338,7 +324,7 @@ export default async function AdminPage(props: AdminPageProps) {
                         <p className="mt-3 font-mono text-xs uppercase tracking-[0.22em] text-white/50">
                           {source.format} –{" "}
                           {source.enabled ? (
-                            <span className="text-[#b7efc5]">aktivni</span>
+                            <span className="text-[#b7efc5]">aktivní</span>
                           ) : (
                             <span className="text-[#ffd8a8]">vypnuto</span>
                           )}
@@ -357,26 +343,30 @@ export default async function AdminPage(props: AdminPageProps) {
               </div>
 
               <div className="mt-5 rounded-[1.25rem] border border-white/10 bg-black/20 p-4 text-sm leading-7 text-[var(--muted)]">
-                Pro live rezim nastav externi cron na endpoint{" "}
-                <code>/api/cron/import</code> kazdych 5 minut. Pokud nastavis{" "}
-                <code>CRON_SECRET</code>, posilej ho jako{" "}
-                <code>Authorization: Bearer ...</code> nebo query parametr{" "}
-                <code>?key=...</code>.
+                Pro live režim nastav externí cron na{" "}
+                <code>/api/cron/import</code> každých 5 minut. Pokud nastavíš{" "}
+                <code>CRON_SECRET</code>, posílej ho jako{" "}
+                <code>Authorization: Bearer …</code> nebo{" "}
+                <code>?key=…</code>.
               </div>
             </section>
 
+            {/* API seznam */}
             <section className="rounded-[1.75rem] border border-white/10 bg-[var(--panel)] p-6 backdrop-blur">
               <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#ffb49a]">
                 API endpoints
               </p>
-              <h2 className="mt-2 text-3xl">Dostupna API</h2>
+              <h2 className="mt-2 text-3xl">Dostupná API</h2>
               <div className="mt-5 grid gap-2 text-sm">
                 {[
-                  { path: "/api/incidents", label: "Vsechny incidenty" },
-                  { path: "/api/incidents/live", label: "Zive incidenty (bez sablon)" },
-                  { path: "/api/map", label: "Mapove markery a trajektorie" },
-                  { path: "/api/verification", label: "Verifikacni statistiky" },
-                  { path: "/api/cron/import", label: "Cron import (vyzaduje CRON_SECRET)" },
+                  { path: "/api/incidents", label: "Všechny incidenty" },
+                  { path: "/api/incidents/live", label: "Živé incidenty (bez šablon)" },
+                  { path: "/api/map", label: "Mapové markery a trajektorie" },
+                  { path: "/api/verification", label: "Verifikační statistiky" },
+                  {
+                    path: "/api/cron/import",
+                    label: "Cron import (vyžaduje CRON_SECRET)",
+                  },
                 ].map(({ path, label }) => (
                   <a
                     key={path}
@@ -392,11 +382,12 @@ export default async function AdminPage(props: AdminPageProps) {
               </div>
             </section>
 
+            {/* Poslední záznamy */}
             <section className="rounded-[1.75rem] border border-white/10 bg-[var(--panel)] p-6 backdrop-blur">
               <p className="font-mono text-xs uppercase tracking-[0.3em] text-[#ffb49a]">
-                Recent
+                Poslední záznamy
               </p>
-              <h2 className="mt-2 text-3xl">Posledni zaznamy</h2>
+              <h2 className="mt-2 text-3xl">Přehled</h2>
               <div className="mt-5 grid gap-3">
                 {incidents.slice(0, 8).map((incident) => (
                   <article
@@ -431,7 +422,7 @@ export default async function AdminPage(props: AdminPageProps) {
                       >
                         {getVerificationLabel(incident.verification)}
                       </span>
-                      <span>{incident.sourceCount} zdroju</span>
+                      <span>{incident.sourceCount} zdrojů</span>
                       {incident.origin === "imported" ? (
                         <span className="text-[#c8b7a4]">import</span>
                       ) : null}

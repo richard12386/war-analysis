@@ -236,13 +236,13 @@ export function formatIncidentDate(date: string) {
 export function getSeverityLabel(severity: IncidentSeverity) {
   switch (severity) {
     case "critical":
-      return "Kriticka";
+      return "Kritická";
     case "high":
-      return "Vysoka";
+      return "Vysoká";
     case "medium":
-      return "Stredni";
+      return "Střední";
     case "low":
-      return "Nizka";
+      return "Nízká";
   }
 }
 
@@ -251,11 +251,11 @@ export function getVerificationLabel(verification: IncidentVerification) {
     case "confirmed":
       return "Potvrzeno";
     case "contested":
-      return "Sporne";
+      return "Sporné";
     case "pending":
-      return "Ceka na overeni";
+      return "Čeká na ověření";
     case "template":
-      return "Sablona";
+      return "Šablona";
   }
 }
 
@@ -264,9 +264,9 @@ export function getCategoryLabel(category: IncidentCategory) {
     case "breaking":
       return "Breaking";
     case "vojensky-vyvoj":
-      return "Vojensky vyvoj";
+      return "Vojenský vývoj";
     case "civilni-dopady":
-      return "Civilni dopady";
+      return "Civilní dopady";
     case "diplomacie":
       return "Diplomacie";
   }
