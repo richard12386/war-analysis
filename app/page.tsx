@@ -108,10 +108,16 @@ export default async function Home() {
 
               <div className="flex flex-wrap gap-3">
                 <Link
-                  href="#timeline"
+                  href="/timeline"
                   className="rounded-full bg-[var(--accent)] px-5 py-3 text-sm font-semibold text-[#1a100d] transition hover:brightness-110"
                 >
                   Otevřít timeline
+                </Link>
+                <Link
+                  href="/stats"
+                  className="rounded-full border border-white/12 px-5 py-3 text-sm font-semibold text-white/90 transition hover:border-white/30 hover:bg-white/6"
+                >
+                  Statistiky
                 </Link>
                 <Link
                   href="/admin"
@@ -255,7 +261,9 @@ export default async function Home() {
         </section>
 
         {/* Mapa */}
-        <IncidentMap incidents={incidents} />
+        <div id="map">
+          <IncidentMap incidents={incidents} />
+        </div>
 
         {/* Timeline */}
         <section

@@ -11,6 +11,7 @@ import {
   type IncidentVerification,
 } from "@/lib/incidents";
 import { importAllEnabledSources, importFromSourceId } from "@/lib/import-sources";
+import { notifyNewIncidents } from "@/lib/telegram";
 
 export async function createIncidentAction(formData: FormData) {
   const title = readRequiredString(formData, "title");
@@ -42,7 +43,7 @@ export async function createIncidentAction(formData: FormData) {
   const casualtiesRaw = readOptionalString(formData, "casualties");
   const injuriesRaw = readOptionalString(formData, "injuries");
 
-  await addIncident({
+  const newIncident = await addIncident({
     title,
     summary,
     body,
@@ -62,6 +63,10 @@ export async function createIncidentAction(formData: FormData) {
     infrastructureDamage: readOptionalString(formData, "infrastructureDamage") || undefined,
   });
 
+  notifyNewIncidents([newIncident]).catch((err) =>
+    console.error("[createIncidentAction] Telegram notify failed:", err),
+  );
+
   revalidatePath("/");
   revalidatePath("/admin");
   revalidatePath("/api/incidents");
@@ -74,7 +79,11 @@ export async function createIncidentAction(formData: FormData) {
 export async function importIncidentFeedAction(formData: FormData) {
   const sourceId = readRequiredString(formData, "sourceId");
   const imported = await importFromSourceId(sourceId);
-  await upsertImportedIncidents(imported);
+  const { newIncidents } = await upsertImportedIncidents(imported);
+
+  notifyNewIncidents(newIncidents).catch((err) =>
+    console.error("[importIncidentFeedAction] Telegram notify failed:", err),
+  );
 
   revalidatePath("/");
   revalidatePath("/admin");
@@ -87,7 +96,11 @@ export async function importIncidentFeedAction(formData: FormData) {
 
 export async function importAllSourcesAction() {
   const result = await importAllEnabledSources();
-  await upsertImportedIncidents(result.items);
+  const { newIncidents } = await upsertImportedIncidents(result.items);
+
+  notifyNewIncidents(newIncidents).catch((err) =>
+    console.error("[importAllSourcesAction] Telegram notify failed:", err),
+  );
 
   revalidatePath("/");
   revalidatePath("/admin");

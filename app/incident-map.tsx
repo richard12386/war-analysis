@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import IncidentMapClient from "@/app/incident-map-client";
 import type { Incident } from "@/lib/incidents";
 
@@ -18,8 +19,10 @@ export function IncidentMap({ incidents }: { incidents: Incident[] }) {
         </p>
       </div>
 
-      <div className="mt-6 overflow-hidden rounded-[1.5rem] border border-white/10">
-        <IncidentMapClient incidents={incidents} />
+      <div className="mt-6">
+        <Suspense>
+          <IncidentMapClient incidents={incidents} />
+        </Suspense>
       </div>
 
       {/* Legenda */}

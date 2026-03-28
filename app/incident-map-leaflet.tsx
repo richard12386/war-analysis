@@ -1,10 +1,35 @@
 "use client";
 
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, CircleMarker, Polyline, Tooltip } from "react-leaflet";
-import type { Incident } from "@/lib/incidents";
+import { useEffect } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Circle,
+  CircleMarker,
+  Polyline,
+  Tooltip,
+  useMap,
+} from "react-leaflet";
+import type { Incident, IncidentPoint } from "@/lib/incidents";
+import { formatNotamExpiry, type NotamZone } from "@/lib/notam-shared";
 
-type Props = { incidents: Incident[] };
+type Props = {
+  incidents: Incident[];
+  focusPoint?: IncidentPoint | null;
+  notamZones?: NotamZone[];
+  showNotam?: boolean;
+};
+
+function MapFocusEffect({ point }: { point: IncidentPoint | null | undefined }) {
+  const map = useMap();
+  useEffect(() => {
+    if (point) {
+      map.flyTo([point.lat, point.lng], 9, { duration: 1.2 });
+    }
+  }, [map, point?.lat, point?.lng]); // eslint-disable-line react-hooks/exhaustive-deps
+  return null;
+}
 
 const VERIFICATION_COLORS = {
   confirmed: "#b7efc5",
@@ -18,7 +43,7 @@ const TILE_URL =
 const TILE_ATTRIBUTION =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>';
 
-export default function LeafletMap({ incidents }: Props) {
+export default function LeafletMap({ incidents, focusPoint, notamZones = [], showNotam = false }: Props) {
   const live = incidents.filter((i) => !i.isTemplate);
 
   const points = live.filter((i) => i.mapPoint).map((i) => ({
@@ -67,6 +92,47 @@ export default function LeafletMap({ incidents }: Props) {
         subdomains="abcd"
         maxZoom={19}
       />
+      <MapFocusEffect point={focusPoint} />
+
+      {/* NOTAM airspace restriction zones */}
+      {showNotam &&
+        notamZones.map((zone) => (
+          <Circle
+            key={zone.id}
+            center={[zone.lat, zone.lng]}
+            radius={zone.radiusM}
+            pathOptions={{
+              color: "#ef4444",
+              fillColor: "#ef4444",
+              fillOpacity: 0.15,
+              weight: 1.5,
+              opacity: 0.75,
+              dashArray: "6 4",
+            }}
+          >
+            <Tooltip direction="top" sticky>
+              <div style={{ maxWidth: 240, fontFamily: "monospace" }}>
+                <p style={{ fontWeight: 700, fontSize: 12, color: "#ef4444", marginBottom: 2 }}>
+                  ✈ NOTAM — {zone.id}
+                </p>
+                <p style={{ fontSize: 11, marginBottom: 2 }}>
+                  <strong>Q-kód:</strong> {zone.qCode}
+                </p>
+                <p style={{ fontSize: 11, marginBottom: 2 }}>
+                  <strong>FL:</strong> {zone.lowerFL}–{zone.upperFL}
+                </p>
+                <p style={{ fontSize: 11, marginBottom: 2 }}>
+                  <strong>Platnost do:</strong> {formatNotamExpiry(zone.effectiveEnd)}
+                </p>
+                {zone.location && (
+                  <p style={{ fontSize: 10, opacity: 0.6, marginTop: 4 }}>
+                    {zone.location}
+                  </p>
+                )}
+              </div>
+            </Tooltip>
+          </Circle>
+        ))}
 
       {/* Confirmed / live incident markers */}
       {points.map((item) => {

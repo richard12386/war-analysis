@@ -9,7 +9,8 @@
       "Bash(grep -i \"^ws$\")",
       "Bash(npx tsc:*)",
       "Bash(grep -n '\"\"enabled\"\"' data/import-sources.json)",
-      "Bash(grep -n '\"\"format\"\"' data/import-sources.json)"
+      "Bash(grep -n '\"\"format\"\"' data/import-sources.json)",
+      "Bash(npm info:*)"
     ]
   }
 }

@@ -203,26 +203,37 @@ export async function addIncident(input: {
     ...dataset.incidents.filter((incident) => incident.id !== newIncident.id),
   ];
 
-  return writeIncidentDataset({
+  await writeIncidentDataset({
     ...dataset,
     incidents,
   });
+
+  return newIncident;
 }
 
-export async function upsertImportedIncidents(imported: Incident[]) {
+export async function upsertImportedIncidents(
+  imported: Incident[],
+): Promise<{ newIncidents: Incident[] }> {
   const dataset = await readIncidentDataset();
+  const existingIds = new Set(dataset.incidents.map((i) => i.id));
   const byId = new Map(dataset.incidents.map((incident) => [incident.id, incident]));
 
+  const newIncidents: Incident[] = [];
   for (const incident of imported) {
+    if (!existingIds.has(incident.id)) {
+      newIncidents.push(incident);
+    }
     byId.set(incident.id, normalizeIncident(incident));
   }
 
-  return writeIncidentDataset({
+  await writeIncidentDataset({
     ...dataset,
     incidents: [...byId.values()].sort((left, right) =>
       right.publishedAt.localeCompare(left.publishedAt),
     ),
   });
+
+  return { newIncidents };
 }
 
 export function formatIncidentDate(date: string) {

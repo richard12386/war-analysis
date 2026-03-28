@@ -1,5 +1,6 @@
 import { upsertImportedIncidents } from "@/lib/incidents";
 import { importAllEnabledSources } from "@/lib/import-sources";
+import { notifyNewIncidents } from "@/lib/telegram";
 
 export const dynamic = "force-dynamic";
 
@@ -17,7 +18,10 @@ export async function GET(request: Request) {
   }
 
   const result = await importAllEnabledSources();
-  await upsertImportedIncidents(result.items);
+  const { newIncidents } = await upsertImportedIncidents(result.items);
+  notifyNewIncidents(newIncidents).catch((err) =>
+    console.error("[cron/import] Telegram notify failed:", err),
+  );
 
   return Response.json({
     ok: true,
