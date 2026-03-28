@@ -1,0 +1,97 @@
+{
+  "sources": [
+    {
+      "id": "reuters-world",
+      "label": "Reuters – World News",
+      "enabled": false,
+      "url": "https://feeds.reuters.com/Reuters/worldNews",
+      "format": "rss",
+      "description": "Reuters svetove zpravy (RSS). Overit URL pred aktivaci – Reuters muze feed presunout.",
+      "category": "breaking",
+      "severity": "medium",
+      "verification": "pending",
+      "tagSeed": ["reuters", "breaking", "iran"]
+    },
+    {
+      "id": "bbc-middleeast",
+      "label": "BBC – Middle East",
+      "enabled": false,
+      "url": "https://feeds.bbci.co.uk/news/world/middle_east/rss.xml",
+      "format": "rss",
+      "description": "BBC News – Blizky vychod (RSS). Overit dostupnost feedu.",
+      "category": "vojensky-vyvoj",
+      "severity": "medium",
+      "verification": "pending",
+      "tagSeed": ["bbc", "blizky-vychod", "iran"]
+    },
+    {
+      "id": "aljazeera-all",
+      "label": "Al Jazeera – All",
+      "enabled": false,
+      "url": "https://www.aljazeera.com/xml/rss/all.xml",
+      "format": "rss",
+      "description": "Al Jazeera – vsechny zpravy (RSS). Pokryva region sirsi nez jen Iran.",
+      "category": "breaking",
+      "severity": "medium",
+      "verification": "pending",
+      "tagSeed": ["aljazeera", "blizky-vychod", "iran"]
+    },
+    {
+      "id": "iranintl-en",
+      "label": "Iran International – English",
+      "enabled": false,
+      "url": "https://www.iranintl.com/en/rss",
+      "format": "rss",
+      "description": "Iran International anglicky feed – fokus na Iran a region.",
+      "category": "breaking",
+      "severity": "high",
+      "verification": "pending",
+      "tagSeed": ["iran-intl", "iran", "breaking"]
+    },
+    {
+      "id": "rferl-iran",
+      "label": "Radio Free Europe – Iran",
+      "enabled": false,
+      "url": "https://www.rferl.org/api/zpqouqe-uyobvt/feed.rss",
+      "format": "rss",
+      "description": "Radio Free Europe / Radio Liberty – Iran sekce. Overit aktualni URL feedu.",
+      "category": "diplomacie",
+      "severity": "medium",
+      "verification": "pending",
+      "tagSeed": ["rferl", "iran", "diplomacie"]
+    },
+    {
+      "id": "sample-rss",
+      "label": "Sample RSS feed (sablona)",
+      "enabled": false,
+      "url": "https://example.com/feed.xml",
+      "format": "rss",
+      "description": "Sablona pro vlastni RSS nebo Atom feed. Doplnit skutecny URL a prepnout enabled na true.",
+      "category": "breaking",
+      "severity": "medium",
+      "verification": "pending",
+      "tagSeed": ["import", "rss", "iran"]
+    },
+    {
+      "id": "sample-json-api",
+      "label": "Sample JSON API (sablona)",
+      "enabled": false,
+      "url": "https://example.com/incidents.json",
+      "format": "json",
+      "description": "Sablona pro JSON API. Cte pole items a mapuje title, summary, body, location, url a publishedAt.",
+      "category": "vojensky-vyvoj",
+      "severity": "medium",
+      "verification": "pending",
+      "tagSeed": ["import", "json", "iran"],
+      "itemPath": "items",
+      "fieldMap": {
+        "title": "title",
+        "summary": "summary",
+        "body": "body",
+        "location": "location",
+        "link": "url",
+        "publishedAt": "publishedAt"
+      }
+    }
+  ]
+}

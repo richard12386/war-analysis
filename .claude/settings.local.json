@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find . -type d ! -path */.next* ! -path */node_modules* ! -path */.git*)",
+      "Bash(npm run:*)"
+    ]
+  }
+}

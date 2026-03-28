@@ -1,26 +1,71 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #130d0a;
+  --foreground: #f5ede3;
+  --muted: #c8b7a4;
+  --line: rgba(245, 237, 227, 0.12);
+  --accent: #dd6a42;
+  --accent-soft: rgba(221, 106, 66, 0.16);
+  --panel: rgba(32, 21, 17, 0.78);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-headline);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background:
+    radial-gradient(circle at top, rgba(221, 106, 66, 0.18), transparent 30%),
+    linear-gradient(180deg, #281712 0%, #130d0a 42%, #0e0907 100%);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-headline), serif;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: rgba(221, 106, 66, 0.3);
+}
+
+.shell {
+  position: relative;
+  isolation: isolate;
+}
+
+.shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    linear-gradient(90deg, transparent 0, transparent calc(100% - 1px), var(--line) calc(100% - 1px)),
+    linear-gradient(transparent 0, transparent calc(100% - 1px), var(--line) calc(100% - 1px));
+  background-size: 72px 72px;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.shell::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(221, 106, 66, 0.14), transparent 24%),
+    radial-gradient(circle at 85% 10%, rgba(236, 187, 118, 0.1), transparent 22%);
+  pointer-events: none;
 }

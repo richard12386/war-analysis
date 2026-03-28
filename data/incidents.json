@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "siteTitle": "Iran War Desk",
+    "regionFocus": "Iran, Persky zaliv, Irak, Syrie, Izrael a okoli",
+    "lastUpdated": "2026-03-27T19:30:00.000Z",
+    "dataState": "ready-for-live-data",
+    "editorialNote": "Tahle sada je pripravena pro zive nasazeni. Aktualni sablonove zaznamy slouzi jako struktura pro redakcni workflow a maji byt nahrazeny pouze overenymi udalostmi."
+  },
+  "watchlist": [
+    {
+      "label": "Letecke utoky a protivzdusna obrana",
+      "description": "Sledovat zasahy, presuny techniky, uzavreni vzdusneho prostoru a dopady na civilni infrastrukturu."
+    },
+    {
+      "label": "Politicka rozhodnuti a diplomaticke reakce",
+      "description": "Vladni prohlaseni, rezoluce, sankce, krizova jednani a vystoupeni armadnich mluvcich."
+    },
+    {
+      "label": "Civilni dopady",
+      "description": "Evakuace, preruseni dodavek, omezeni internetu, zdravotni rizika a bezpecnost civilistu."
+    }
+  ],
+  "incidents": [
+    {
+      "id": "tpl-001",
+      "title": "Sem vlozte prvni potvrzenou urgentni udalost",
+      "summary": "Po overeni nahradte tuto sablonu kratkym shrnutim toho, co se stalo, kde, kdy a jaky to ma operacni dopad.",
+      "body": "Tady muze byt delsi text s casovou osou, reakcemi akteru, potvrzenymi dopady a vysvetlenim, co je jeste nepotvrzene.",
+      "location": "Teheran / doplnit",
+      "publishedAt": "2026-03-27T17:45:00.000Z",
+      "category": "breaking",
+      "severity": "critical",
+      "verification": "template",
+      "featured": true,
+      "isTemplate": true,
+      "origin": "template",
+      "mapPoint": {
+        "lat": 35.6892,
+        "lng": 51.389,
+        "label": "Teheran"
+      },
+      "trajectories": [
+        {
+          "id": "traj-template-001",
+          "weaponType": "Balisticka raketa / doplnit",
+          "status": "reported",
+          "origin": {
+            "lat": 34.6416,
+            "lng": 50.8746,
+            "label": "Start / doplnit"
+          },
+          "target": {
+            "lat": 35.6892,
+            "lng": 51.389,
+            "label": "Cil / Teheran"
+          }
+        }
+      ],
+      "tags": ["iran", "breaking", "template"],
+      "sourceCount": 0,
+      "sources": []
+    },
+    {
+      "id": "tpl-002",
+      "title": "Sablona pro pohyb jednotek nebo raketovy utok",
+      "summary": "Pouzijte pro potvrzene vojenske udalosti. Udrzujte neutralni jazyk, jasne oddelte potvrzene informace od tvrzeni stran konfliktu.",
+      "body": "Sem patri rozsah utoku, pravdepodobny cil, reakce protivzdusne obrany, potvrzene skody a seznam zdroju, ze kterych informace pochazi.",
+      "location": "Zapadni Iran / doplnit",
+      "publishedAt": "2026-03-27T16:10:00.000Z",
+      "category": "vojensky-vyvoj",
+      "severity": "high",
+      "verification": "template",
+      "featured": false,
+      "isTemplate": true,
+      "origin": "template",
+      "mapPoint": {
+        "lat": 34.3142,
+        "lng": 47.065,
+        "label": "Zapadni Iran"
+      },
+      "tags": ["fronta", "rakety", "template"],
+      "sourceCount": 0,
+      "sources": []
+    },
+    {
+      "id": "tpl-003",
+      "title": "Sablona pro civilni dopady a omezeni",
+      "summary": "Vhodne pro vypadky proudu, skoly, nemocnice, uzavrene silnice, evakuace nebo preruseni internetu. Pokud jsou cisla nejasna, uvedte rozsah nejistoty.",
+      "body": "Doplnte, koho se omezeni tykaji, od kdy plati, zda jde o oficialni opatreni a jaky je bezprostredni dopad na civilisty.",
+      "location": "Jizni Iran / doplnit",
+      "publishedAt": "2026-03-27T14:30:00.000Z",
+      "category": "civilni-dopady",
+      "severity": "medium",
+      "verification": "template",
+      "featured": false,
+      "isTemplate": true,
+      "origin": "template",
+      "mapPoint": {
+        "lat": 29.5918,
+        "lng": 52.5837,
+        "label": "Jizni Iran"
+      },
+      "tags": ["civiliste", "infrastruktura", "template"],
+      "sourceCount": 0,
+      "sources": []
+    }
+  ]
+}
