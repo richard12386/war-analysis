@@ -2,7 +2,7 @@
   "meta": {
     "siteTitle": "Iran War Desk",
     "regionFocus": "Iran, Persky zaliv, Irak, Syrie, Izrael a okoli",
-    "lastUpdated": "2026-03-27T19:30:00.000Z",
+    "lastUpdated": "2026-03-28T17:06:41.636Z",
     "dataState": "ready-for-live-data",
     "editorialNote": "Tahle sada je pripravena pro zive nasazeni. Aktualni sablonove zaznamy slouzi jako struktura pro redakcni workflow a maji byt nahrazeny pouze overenymi udalostmi."
   },
@@ -22,87 +22,317 @@
   ],
   "incidents": [
     {
-      "id": "tpl-001",
-      "title": "Sem vlozte prvni potvrzenou urgentni udalost",
-      "summary": "Po overeni nahradte tuto sablonu kratkym shrnutim toho, co se stalo, kde, kdy a jaky to ma operacni dopad.",
-      "body": "Tady muze byt delsi text s casovou osou, reakcemi akteru, potvrzenymi dopady a vysvetlenim, co je jeste nepotvrzene.",
-      "location": "Teheran / doplnit",
-      "publishedAt": "2026-03-27T17:45:00.000Z",
+      "id": "2026-03-27-prince-sultan-air-base-attack",
+      "title": "Iranian missile-and-drone attack wounds U.S. troops at Prince Sultan Air Base",
+      "summary": "Iran fired ballistic missiles and drones at Prince Sultan Air Base in Saudi Arabia, damaging aircraft and injuring U.S. personnel.",
+      "body": "AP reported that Iran launched ballistic missiles and drones at Prince Sultan Air Base on 27 March 2026. Follow-up reporting said at least 15 U.S. troops were injured, including several seriously, and aircraft at the base were damaged.",
+      "location": "Prince Sultan Air Base, Saudi Arabia",
+      "publishedAt": "2026-03-27T22:49:39Z",
       "category": "breaking",
       "severity": "critical",
-      "verification": "template",
+      "verification": "confirmed",
       "featured": true,
-      "isTemplate": true,
-      "origin": "template",
+      "isTemplate": false,
+      "origin": "manual",
+      "mapPoint": {
+        "lat": 24.0553,
+        "lng": 47.5636,
+        "label": "Prince Sultan Air Base"
+      },
+      "tags": [
+        "missile",
+        "drone",
+        "saudi-arabia",
+        "us-military",
+        "air-base"
+      ],
+      "sourceCount": 2,
+      "sources": [
+        {
+          "label": "Associated Press",
+          "url": "https://apnews.com/article/8404fd9b67b76c756e543fc307565572",
+          "type": "media"
+        },
+        {
+          "label": "Associated Press",
+          "url": "https://apnews.com/article/ea713e7850053d8670b062e6b11a6e39",
+          "type": "media"
+        }
+      ],
+      "weaponType": "Ballistic missile and drone"
+    },
+    {
+      "id": "2026-03-25-kuwait-airport-fuel-tank-strike",
+      "title": "Strike hits fuel tank at Kuwait International Airport",
+      "summary": "An Iranian strike on 25 March hit a fuel tank at Kuwait International Airport and triggered a fire.",
+      "body": "AP reported that one of Iran's attacks on Gulf Arab countries on 25 March 2026 struck a fuel tank at Kuwait International Airport. The strike highlighted the growing exposure of Gulf civil aviation infrastructure.",
+      "location": "Kuwait International Airport",
+      "publishedAt": "2026-03-25T04:28:51Z",
+      "category": "civilni-dopady",
+      "severity": "critical",
+      "verification": "confirmed",
+      "featured": false,
+      "isTemplate": false,
+      "origin": "manual",
+      "mapPoint": {
+        "lat": 29.2266,
+        "lng": 47.9689,
+        "label": "Kuwait International Airport"
+      },
+      "tags": [
+        "missile",
+        "kuwait",
+        "airport",
+        "aviation",
+        "infrastructure"
+      ],
+      "sourceCount": 1,
+      "sources": [
+        {
+          "label": "Associated Press",
+          "url": "https://apnews.com/article/be07c54139bcc70672bb33f0773ede6a",
+          "type": "media"
+        }
+      ],
+      "weaponType": "Missile",
+      "targetType": "Airport fuel infrastructure"
+    },
+    {
+      "id": "2026-03-14-fujairah-oil-facility-drone-fire",
+      "title": "Debris from intercepted Iranian drone sparks fire at Fujairah oil facility",
+      "summary": "Debris from an intercepted Iranian drone struck an oil facility in Fujairah and started a fire.",
+      "body": "AP reported that after Iranian warnings about major UAE ports, debris from an intercepted drone hit an oil facility in Fujairah on 14 March 2026. The incident extended the war's direct impact to critical Gulf port and oil infrastructure.",
+      "location": "Port of Fujairah, UAE",
+      "publishedAt": "2026-03-14T04:03:54Z",
+      "category": "civilni-dopady",
+      "severity": "high",
+      "verification": "confirmed",
+      "featured": false,
+      "isTemplate": false,
+      "origin": "manual",
+      "mapPoint": {
+        "lat": 25.1667,
+        "lng": 56.35,
+        "label": "Port of Fujairah"
+      },
+      "tags": [
+        "drone",
+        "uae",
+        "fujairah",
+        "oil",
+        "port"
+      ],
+      "sourceCount": 1,
+      "sources": [
+        {
+          "label": "Associated Press",
+          "url": "https://apnews.com/article/a2399398b4c590995b814d7640362a11",
+          "type": "media"
+        }
+      ],
+      "weaponType": "Drone",
+      "targetType": "Oil facility"
+    },
+    {
+      "id": "2026-03-10-strait-of-hormuz-minelayers-destroyed",
+      "title": "U.S. says it destroyed 16 Iranian mine-laying vessels in the Strait of Hormuz campaign",
+      "summary": "U.S. officials said 16 Iranian mine-laying vessels were destroyed during operations tied to threats against shipping in the Strait of Hormuz.",
+      "body": "AP reported on 10 March 2026 that the U.S. military said it destroyed 16 Iranian mine-laying vessels as Tehran threatened to block oil exports through the Strait of Hormuz. Open-source confirmation of the full claim remained limited at the time of reporting.",
+      "location": "Strait of Hormuz",
+      "publishedAt": "2026-03-10T03:24:47Z",
+      "category": "vojensky-vyvoj",
+      "severity": "high",
+      "verification": "pending",
+      "featured": false,
+      "isTemplate": false,
+      "origin": "manual",
+      "mapPoint": {
+        "lat": 26.5,
+        "lng": 56.25,
+        "label": "Strait of Hormuz"
+      },
+      "tags": [
+        "maritime",
+        "strait-of-hormuz",
+        "mines",
+        "naval",
+        "us"
+      ],
+      "sourceCount": 1,
+      "sources": [
+        {
+          "label": "Associated Press",
+          "url": "https://apnews.com/article/acf2af139d179fbef62927a8bf9bea55",
+          "type": "media"
+        }
+      ],
+      "targetType": "Mine-laying vessels",
+      "verificationNote": "Important official claim with major strategic implications, but independent corroboration in open sources was limited at the time of reporting."
+    },
+    {
+      "id": "2026-03-02-port-salman-stena-imperative-strike",
+      "title": "STENA IMPERATIVE struck by projectiles while berthed in Bahrain",
+      "summary": "Official maritime advisories recorded the STENA IMPERATIVE as hit by two projectiles while berthed in Bahrain.",
+      "body": "JMIC and IMO advisories reported that the U.S.-flagged tanker STENA IMPERATIVE was struck in the Port Salman / HIDD area in the early hours of 2 March 2026. The strike caused a fire, killed one shipyard worker and seriously injured two others.",
+      "location": "Port Salman / HIDD, Bahrain",
+      "publishedAt": "2026-03-02T02:57:00Z",
+      "category": "vojensky-vyvoj",
+      "severity": "high",
+      "verification": "confirmed",
+      "featured": false,
+      "isTemplate": false,
+      "origin": "manual",
+      "mapPoint": {
+        "lat": 26.1833,
+        "lng": 50.6667,
+        "label": "Port Salman / HIDD"
+      },
+      "tags": [
+        "maritime",
+        "bahrain",
+        "tanker",
+        "port-salman",
+        "shipping"
+      ],
+      "sourceCount": 2,
+      "sources": [
+        {
+          "label": "UKMTO / JMIC advisory",
+          "url": "https://www.ukmto.org/-/media/ukmto/products/update-002---001---jmic-advisory-note-28_feb_2026_final.pdf",
+          "type": "official"
+        },
+        {
+          "label": "International Maritime Organization",
+          "url": "https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-strait-of-hormuz.aspx",
+          "type": "official"
+        }
+      ],
+      "targetType": "Commercial tanker",
+      "casualties": 1,
+      "injuries": 2
+    },
+    {
+      "id": "2026-03-01-mkd-vyom-gulf-of-oman-strike",
+      "title": "Tanker MKD VYOM hit by projectile/USV north of Muscat",
+      "summary": "The tanker MKD VYOM was struck north of Muscat in an incident later assessed as involving an unmanned surface vessel.",
+      "body": "Official maritime advisories recorded the Marshall Islands-flagged crude tanker MKD VYOM as struck about 45 nautical miles north of Muscat on 1 March 2026. Reporting later assessed the strike as involving an unmanned surface vessel and confirmed an engine-room fire with one fatality.",
+      "location": "45 NM north of Muscat, Gulf of Oman",
+      "publishedAt": "2026-03-01T00:00:00Z",
+      "category": "vojensky-vyvoj",
+      "severity": "high",
+      "verification": "confirmed",
+      "featured": false,
+      "isTemplate": false,
+      "origin": "manual",
+      "mapPoint": {
+        "lat": 24.3167,
+        "lng": 58.3333,
+        "label": "Gulf of Oman north of Muscat"
+      },
+      "tags": [
+        "maritime",
+        "gulf-of-oman",
+        "tanker",
+        "usv",
+        "shipping"
+      ],
+      "sourceCount": 2,
+      "sources": [
+        {
+          "label": "UKMTO / JMIC advisory",
+          "url": "https://www.ukmto.org/-/media/ukmto/products/update-002---001---jmic-advisory-note-28_feb_2026_final.pdf",
+          "type": "official"
+        },
+        {
+          "label": "International Maritime Organization",
+          "url": "https://www.imo.org/en/mediacentre/hottopics/pages/middle-east-strait-of-hormuz.aspx",
+          "type": "official"
+        }
+      ],
+      "targetType": "Crude tanker",
+      "casualties": 1,
+      "infrastructureDamage": "Engine-room fire after impact."
+    },
+    {
+      "id": "2026-02-28-tehran-camera-network-compromise",
+      "title": "Israeli use of compromised Tehran camera network during opening strikes",
+      "summary": "Reporting indicates Israeli operators used compromised Tehran surveillance cameras to help track targets during the opening strikes.",
+      "body": "AP reported that Israeli operators used compromised Tehran surveillance cameras during the opening day of the war on 28 February 2026. The account cited people briefed on the operation and previous public warnings about camera compromise, but the operational details were not fully independently verified in public.",
+      "location": "Tehran",
+      "publishedAt": "2026-02-28T06:19:16Z",
+      "category": "vojensky-vyvoj",
+      "severity": "medium",
+      "verification": "pending",
+      "featured": false,
+      "isTemplate": false,
+      "origin": "manual",
       "mapPoint": {
         "lat": 35.6892,
         "lng": 51.389,
-        "label": "Teheran"
+        "label": "Tehran"
       },
-      "trajectories": [
+      "tags": [
+        "cyber",
+        "tehran",
+        "surveillance",
+        "israel",
+        "osint"
+      ],
+      "sourceCount": 1,
+      "sources": [
         {
-          "id": "traj-template-001",
-          "weaponType": "Balisticka raketa / doplnit",
-          "status": "reported",
-          "origin": {
-            "lat": 34.6416,
-            "lng": 50.8746,
-            "label": "Start / doplnit"
-          },
-          "target": {
-            "lat": 35.6892,
-            "lng": 51.389,
-            "label": "Cil / Teheran"
-          }
+          "label": "Associated Press",
+          "url": "https://apnews.com/article/5f9a1fe5845d94894f3edd50af560d3a",
+          "type": "media"
         }
       ],
-      "tags": ["iran", "breaking", "template"],
-      "sourceCount": 0,
-      "sources": []
+      "targetType": "Urban surveillance network",
+      "verificationNote": "Reported by AP with sourcing tied to briefed officials and prior public warnings about camera compromise; operational details remain only partially corroborated in public."
     },
     {
-      "id": "tpl-002",
-      "title": "Sablona pro pohyb jednotek nebo raketovy utok",
-      "summary": "Pouzijte pro potvrzene vojenske udalosti. Udrzujte neutralni jazyk, jasne oddelte potvrzene informace od tvrzeni stran konfliktu.",
-      "body": "Sem patri rozsah utoku, pravdepodobny cil, reakce protivzdusne obrany, potvrzene skody a seznam zdroju, ze kterych informace pochazi.",
-      "location": "Zapadni Iran / doplnit",
-      "publishedAt": "2026-03-27T16:10:00.000Z",
-      "category": "vojensky-vyvoj",
-      "severity": "high",
-      "verification": "template",
-      "featured": false,
-      "isTemplate": true,
-      "origin": "template",
-      "mapPoint": {
-        "lat": 34.3142,
-        "lng": 47.065,
-        "label": "Zapadni Iran"
-      },
-      "tags": ["fronta", "rakety", "template"],
-      "sourceCount": 0,
-      "sources": []
-    },
-    {
-      "id": "tpl-003",
-      "title": "Sablona pro civilni dopady a omezeni",
-      "summary": "Vhodne pro vypadky proudu, skoly, nemocnice, uzavrene silnice, evakuace nebo preruseni internetu. Pokud jsou cisla nejasna, uvedte rozsah nejistoty.",
-      "body": "Doplnte, koho se omezeni tykaji, od kdy plati, zda jde o oficialni opatreni a jaky je bezprostredni dopad na civilisty.",
-      "location": "Jizni Iran / doplnit",
-      "publishedAt": "2026-03-27T14:30:00.000Z",
+      "id": "2026-02-28-doha-gulf-airspace-closure",
+      "title": "Regional airspace closures ripple across the Gulf after the opening strikes on Iran",
+      "summary": "Airspace closures and restrictions spread across the Gulf after the opening strikes on Iran, affecting multiple regional states and airlines.",
+      "body": "After the opening U.S.-Israeli strikes on Iran on 28 February 2026, AP reported closures over Israel, Qatar, Syria, Iran, Iraq, Kuwait and Bahrain, with a partial UAE closure. EASA later maintained a conflict-zone bulletin covering Iran and neighboring airspace, and Qatar Airways published its own operational update.",
+      "location": "Hamad International Airport / Doha FIR",
+      "publishedAt": "2026-02-28T10:54:59Z",
       "category": "civilni-dopady",
-      "severity": "medium",
-      "verification": "template",
-      "featured": false,
-      "isTemplate": true,
-      "origin": "template",
+      "severity": "critical",
+      "verification": "confirmed",
+      "featured": true,
+      "isTemplate": false,
+      "origin": "manual",
       "mapPoint": {
-        "lat": 29.5918,
-        "lng": 52.5837,
-        "label": "Jizni Iran"
+        "lat": 25.2731,
+        "lng": 51.608,
+        "label": "Hamad International Airport / Doha FIR"
       },
-      "tags": ["civiliste", "infrastruktura", "template"],
-      "sourceCount": 0,
-      "sources": []
+      "tags": [
+        "notam",
+        "airspace",
+        "qatar",
+        "gulf",
+        "aviation"
+      ],
+      "sourceCount": 3,
+      "sources": [
+        {
+          "label": "Associated Press",
+          "url": "https://apnews.com/article/0346e29ee99eaee2838c8e08f4facb78",
+          "type": "media"
+        },
+        {
+          "label": "EASA Conflict Zone Information Bulletin",
+          "url": "https://www.easa.europa.eu/en/domains/air-operations/czibs/2026-03-r5",
+          "type": "official"
+        },
+        {
+          "label": "Qatar Airways operations update",
+          "url": "https://www.qatarairways.com/tradeportal/en/news-updates/2026/Operations-update-Qatari-Airspace-closure.html",
+          "type": "official"
+        }
+      ],
+      "targetType": "Regional airspace and civil aviation operations"
     }
   ]
 }
